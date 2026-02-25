@@ -3,7 +3,7 @@ node_modules/
 package-lock.json
 
 # 构建输出
-dist/
+# dist/  # 注释掉，允许提交 dist 文件夹用于部署
 *.log
 
 # 编辑器
