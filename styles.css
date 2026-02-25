@@ -92,6 +92,52 @@ body {
   color: #666;
 }
 
+/* 评价标准说明区 */
+#rating-guide {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  max-width: 700px;
+}
+
+.rating-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.rating-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.rating-icon {
+  font-size: 20px;
+}
+
+.rating-name {
+  font-weight: 600;
+  color: #333;
+  min-width: 40px;
+}
+
+.rating-time {
+  color: #666;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+}
+
 /* 增强反馈动画 */
 /* 神级：金色闪耀动画 */
 @keyframes godlikeShine {
