@@ -127,6 +127,10 @@ export class GameController implements IGameController {
         break;
 
       case GameState.RESULT:
+        // 结果显示后，玩家点击继续下一轮
+        this.startRound();
+        break;
+
       case GameState.EARLY_CLICK:
         // 在这些状态下忽略点击
         break;
@@ -204,10 +208,8 @@ export class GameController implements IGameController {
     // 设置状态为 RESULT
     this.stateManager.setState(GameState.RESULT);
 
-    // 延迟后自动开始新一轮游戏（需求 8.1, 8.3）
-    this.timerService.setDelay(() => {
-      this.startRound();
-    }, defaultGameConfig.roundInterval);
+    // 显示提示信息，等待玩家点击继续
+    this.uiRenderer.displayMessage('点击色块继续下一轮');
   }
 
   /**
