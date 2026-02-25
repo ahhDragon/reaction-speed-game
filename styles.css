@@ -93,6 +93,36 @@ body {
 }
 
 /* 增强反馈动画 */
+/* 神级：金色闪耀动画 */
+@keyframes godlikeShine {
+  0%, 100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px 15px rgba(255, 215, 0, 0.9);
+  }
+}
+
+.feedback-godlike {
+  animation: godlikeShine 0.5s ease-in-out 2;
+}
+
+/* 超快：紫色脉冲动画 */
+@keyframes superfastPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px 12px rgba(147, 51, 234, 0.8);
+  }
+}
+
+.feedback-superfast {
+  animation: superfastPulse 0.6s ease-in-out 2;
+}
+
 /* 优秀：绿色闪光动画 */
 @keyframes greenFlash {
   0%, 100% {
@@ -123,7 +153,7 @@ body {
   animation: bluePulse 0.8s ease-in-out 2;
 }
 
-/* 一般：黄色淡入淡出 */
+/* 还行：黄色淡入淡出 */
 @keyframes yellowFade {
   0%, 100% {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -137,7 +167,7 @@ body {
   animation: yellowFade 1s ease-in-out 2;
 }
 
-/* 需要提高：橙色提示 */
+/* 有点慢：橙色提示 */
 @keyframes orangeAlert {
   0%, 100% {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -147,8 +177,22 @@ body {
   }
 }
 
-.feedback-needs-improvement {
+.feedback-slow {
   animation: orangeAlert 1s ease-in-out 2;
+}
+
+/* 反应迟钝：红色警告 */
+@keyframes redWarning {
+  0%, 100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  25%, 75% {
+    box-shadow: 0 0 15px 5px rgba(239, 68, 68, 0.5);
+  }
+}
+
+.feedback-very-slow {
+  animation: redWarning 1s ease-in-out 2;
 }
 
 /* 反馈文字样式 */
@@ -157,6 +201,15 @@ body {
   margin-left: 10px;
   font-size: 20px;
   font-weight: bold;
+}
+
+.feedback-text.godlike {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.feedback-text.superfast {
+  color: #9333EA;
 }
 
 .feedback-text.excellent {
@@ -171,6 +224,10 @@ body {
   color: #eab308;
 }
 
-.feedback-text.needs-improvement {
+.feedback-text.slow {
   color: #f97316;
+}
+
+.feedback-text.very-slow {
+  color: #ef4444;
 }

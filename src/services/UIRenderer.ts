@@ -100,29 +100,47 @@ export class UIRenderer implements IUIRenderer {
    */
   private getFeedbackInfo(rating: string): { text: string; textClass: string; animationClass: string } {
     switch (rating) {
-      case '优秀':
+      case '神级反应':
         return {
-          text: '太快了！',
+          text: '开挂了吧？🤔',
+          textClass: 'godlike',
+          animationClass: 'feedback-godlike'
+        };
+      case '超快反应':
+        return {
+          text: '手速单身30年！💪',
+          textClass: 'superfast',
+          animationClass: 'feedback-superfast'
+        };
+      case '优秀反应':
+        return {
+          text: '稳！👌',
           textClass: 'excellent',
           animationClass: 'feedback-excellent'
         };
-      case '良好':
+      case '良好反应':
         return {
-          text: '不错！',
+          text: '还不错嘛～😎',
           textClass: 'good',
           animationClass: 'feedback-good'
         };
-      case '一般':
+      case '还行吧':
         return {
-          text: '继续加油！',
+          text: '差点意思～🤏',
           textClass: 'average',
           animationClass: 'feedback-average'
         };
-      case '需要提高':
+      case '有点慢':
         return {
-          text: '再试一次！',
-          textClass: 'needs-improvement',
-          animationClass: 'feedback-needs-improvement'
+          text: '是不是没睡醒？😪',
+          textClass: 'slow',
+          animationClass: 'feedback-slow'
+        };
+      case '反应迟钝':
+        return {
+          text: '蜗牛都比你快！🐌',
+          textClass: 'very-slow',
+          animationClass: 'feedback-very-slow'
         };
       default:
         return {
@@ -162,13 +180,19 @@ export class UIRenderer implements IUIRenderer {
    */
   private getAnimationDuration(animationClass: string): number {
     switch (animationClass) {
+      case 'feedback-godlike':
+        return 1000; // 0.5s * 2 iterations
+      case 'feedback-superfast':
+        return 1200; // 0.6s * 2 iterations
       case 'feedback-excellent':
         return 1200; // 0.6s * 2 iterations
       case 'feedback-good':
         return 1600; // 0.8s * 2 iterations
       case 'feedback-average':
         return 2000; // 1s * 2 iterations
-      case 'feedback-needs-improvement':
+      case 'feedback-slow':
+        return 2000; // 1s * 2 iterations
+      case 'feedback-very-slow':
         return 2000; // 1s * 2 iterations
       default:
         return 0;
