@@ -1,6 +1,6 @@
 # 依赖
 node_modules/
-package-lock.json
+# package-lock.json  # 需要提交以支持 GitHub Actions 缓存
 
 # 构建输出
 # dist/  # 注释掉，允许提交 dist 文件夹用于部署
