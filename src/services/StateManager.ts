@@ -17,7 +17,7 @@ export class StateManager implements IStateManager {
     this.listeners = [];
     
     // 初始化合法的状态转换规则
-    this.validTransitions = new Map([
+    this.validTransitions = new Map<GameState, Set<GameState>>([
       [GameState.INITIAL, new Set([GameState.WAITING])],
       [GameState.WAITING, new Set([GameState.EARLY_CLICK, GameState.READY])],
       [GameState.EARLY_CLICK, new Set([GameState.WAITING])],
