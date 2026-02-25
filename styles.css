@@ -34,6 +34,35 @@ body {
   cursor: pointer;
   transition: transform 0.1s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* 初始状态文字 */
+#color-block.initial-state::after {
+  content: '点击开始游戏';
+  color: white;
+  font-size: 24px;
+  font-weight: 900;
+  font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* 呼吸动画 */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+#color-block.initial-state {
+  animation: breathe 2s ease-in-out infinite;
 }
 
 #color-block:hover {

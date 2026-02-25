@@ -55,6 +55,20 @@ export class UIRenderer implements IUIRenderer {
   }
 
   /**
+   * 设置初始状态样式（呼吸动画和文字提示）
+   */
+  setInitialState(): void {
+    this.colorBlockElement.classList.add('initial-state');
+  }
+
+  /**
+   * 移除初始状态样式
+   */
+  removeInitialState(): void {
+    this.colorBlockElement.classList.remove('initial-state');
+  }
+
+  /**
    * 显示反应时间和评价（带增强反馈）
    * 
    * @param reactionTime 反应时间（毫秒）

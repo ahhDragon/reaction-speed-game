@@ -34,6 +34,9 @@ export class GameController implements IGameController {
     // 显示初始状态的色块（红色）
     this.uiRenderer.renderColorBlock(defaultGameConfig.colors.initial);
     
+    // 设置初始状态样式（呼吸动画和文字提示）
+    this.uiRenderer.setInitialState();
+    
     // 显示游戏说明
     this.uiRenderer.displayInstructions();
     
@@ -113,6 +116,8 @@ export class GameController implements IGameController {
     switch (currentState) {
       case GameState.INITIAL:
         // 首次点击，开始第一轮游戏（需求 9.3）
+        // 移除初始状态样式
+        this.uiRenderer.removeInitialState();
         this.startRound();
         break;
 
