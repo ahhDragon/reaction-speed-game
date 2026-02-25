@@ -20,7 +20,7 @@ export class StateManager implements IStateManager {
     this.validTransitions = new Map<GameState, Set<GameState>>([
       [GameState.INITIAL, new Set([GameState.WAITING])],
       [GameState.WAITING, new Set([GameState.EARLY_CLICK, GameState.READY])],
-      [GameState.EARLY_CLICK, new Set([GameState.WAITING])],
+      [GameState.EARLY_CLICK, new Set([GameState.WAITING, GameState.INITIAL])],
       [GameState.READY, new Set([GameState.RESULT])],
       [GameState.RESULT, new Set([GameState.WAITING])]
     ]);
