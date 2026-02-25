@@ -1,0 +1,147 @@
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#game-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* 色块样式 */
+#color-block {
+  width: 200px;
+  height: 200px;
+  border: 3px solid #333;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#color-block:hover {
+  transform: scale(1.02);
+}
+
+#color-block:active {
+  transform: scale(0.98);
+}
+
+/* 结果显示区样式 */
+#result-display {
+  min-height: 60px;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 消息提示区样式 */
+#message-display {
+  min-height: 40px;
+  padding: 15px;
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+}
+
+/* 增强反馈动画 */
+/* 优秀：绿色闪光动画 */
+@keyframes greenFlash {
+  0%, 100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px 10px rgba(34, 197, 94, 0.8);
+  }
+}
+
+.feedback-excellent {
+  animation: greenFlash 0.6s ease-in-out 2;
+}
+
+/* 良好：蓝色脉冲动画 */
+@keyframes bluePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px 8px rgba(59, 130, 246, 0.7);
+  }
+}
+
+.feedback-good {
+  animation: bluePulse 0.8s ease-in-out 2;
+}
+
+/* 一般：黄色淡入淡出 */
+@keyframes yellowFade {
+  0%, 100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px 6px rgba(234, 179, 8, 0.6);
+  }
+}
+
+.feedback-average {
+  animation: yellowFade 1s ease-in-out 2;
+}
+
+/* 需要提高：橙色提示 */
+@keyframes orangeAlert {
+  0%, 100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  25%, 75% {
+    box-shadow: 0 0 15px 5px rgba(249, 115, 22, 0.5);
+  }
+}
+
+.feedback-needs-improvement {
+  animation: orangeAlert 1s ease-in-out 2;
+}
+
+/* 反馈文字样式 */
+.feedback-text {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.feedback-text.excellent {
+  color: #22c55e;
+}
+
+.feedback-text.good {
+  color: #3b82f6;
+}
+
+.feedback-text.average {
+  color: #eab308;
+}
+
+.feedback-text.needs-improvement {
+  color: #f97316;
+}
