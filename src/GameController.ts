@@ -74,9 +74,11 @@ export class GameController implements IGameController {
     // 重置色块到初始颜色（红色）
     this.uiRenderer.renderColorBlock(defaultGameConfig.colors.initial);
     
-    // 清空之前的结果和消息显示
+    // 清空之前的结果显示
     this.uiRenderer.clearResult();
-    this.uiRenderer.clearMessage();
+    
+    // 显示等待提示信息
+    this.uiRenderer.displayMessage('等待色块变绿后尽快点击');
 
     // 设置状态为 WAITING
     this.stateManager.setState(GameState.WAITING);
@@ -85,6 +87,9 @@ export class GameController implements IGameController {
     this.timerService.setDelay(() => {
       // 改变色块颜色为绿色
       this.uiRenderer.renderColorBlock(defaultGameConfig.colors.changed);
+      
+      // 显示快速点击提示
+      this.uiRenderer.displayMessage('快点击色块！！');
       
       // 记录颜色变化的时间戳
       if (this.currentRound) {
@@ -172,10 +177,20 @@ export class GameController implements IGameController {
     // 显示提前点击提示信息
     this.uiRenderer.displayMessage('提前点击！请等待色块变绿后再点击。');
 
-    // 延迟至少 1000ms 后重新开始游戏轮次
+    // 延迟 2000ms 后回到初始状态
     this.timerService.setDelay(() => {
-      this.startRound();
-    }, defaultGameConfig.earlyClickMessageDuration);
+      // 回到初始状态
+      this.stateManager.setState(GameState.INITIAL);
+      
+      // 重置色块到初始颜色
+      this.uiRenderer.renderColorBlock(defaultGameConfig.colors.initial);
+      
+      // 设置初始状态样式（呼吸动画和文字提示）
+      this.uiRenderer.setInitialState();
+      
+      // 显示游戏说明
+      this.uiRenderer.displayInstructions();
+    }, 2000); // 提示显示 2 秒
   }
 
   /**
