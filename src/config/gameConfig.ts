@@ -42,21 +42,21 @@ export const defaultGameConfig: GameConfig = {
  * 性能评价阈值配置
  * 
  * 根据反应时间（毫秒）判断性能等级（7个等级）：
- * - 神级反应：反应时间 < 150ms
- * - 超快反应：150ms ≤ 反应时间 < 200ms
- * - 优秀反应：200ms ≤ 反应时间 < 250ms
- * - 良好反应：250ms ≤ 反应时间 < 320ms
- * - 还行吧：320ms ≤ 反应时间 < 420ms
- * - 有点慢：420ms ≤ 反应时间 < 550ms
- * - 反应迟钝：反应时间 ≥ 550ms
+ * - 神级反应：反应时间 < 180ms
+ * - 超快反应：180ms ≤ 反应时间 < 250ms
+ * - 优秀反应：250ms ≤ 反应时间 < 320ms
+ * - 良好反应：320ms ≤ 反应时间 < 400ms
+ * - 还行吧：400ms ≤ 反应时间 < 500ms
+ * - 有点慢：500ms ≤ 反应时间 < 600ms
+ * - 反应迟钝：反应时间 ≥ 600ms
  */
 export const performanceThresholds = {
-  godlike: 150,    // 神级阈值
-  superfast: 200,  // 超快阈值
-  excellent: 250,  // 优秀阈值
-  good: 320,       // 良好阈值
-  average: 420,    // 还行阈值
-  slow: 550,       // 偏慢阈值
+  godlike: 180,    // 神级阈值
+  superfast: 250,  // 超快阈值
+  excellent: 320,  // 优秀阈值
+  good: 400,       // 良好阈值
+  average: 500,    // 还行阈值
+  slow: 600,       // 偏慢阈值
 } as const;
 
 /**
