@@ -69,6 +69,20 @@ export class UIRenderer implements IUIRenderer {
   }
 
   /**
+   * 设置大胖鹅模式样式
+   */
+  setGooseModeStyle(): void {
+    this.colorBlockElement.classList.add('goose-mode');
+  }
+
+  /**
+   * 移除大胖鹅模式样式
+   */
+  removeGooseModeStyle(): void {
+    this.colorBlockElement.classList.remove('goose-mode');
+  }
+
+  /**
    * 显示反应时间和评价（带增强反馈）
    * 
    * @param reactionTime 反应时间（毫秒）
@@ -241,5 +255,39 @@ export class UIRenderer implements IUIRenderer {
    */
   getColorBlockElement(): HTMLElement {
     return this.colorBlockElement;
+  }
+
+  /**
+   * 显示倒计时进度条
+   */
+  showCountdownBar(): void {
+    const container = document.getElementById('countdown-bar-container');
+    if (container) {
+      container.style.display = 'block';
+    }
+  }
+
+  /**
+   * 隐藏倒计时进度条
+   */
+  hideCountdownBar(): void {
+    const container = document.getElementById('countdown-bar-container');
+    const bar = document.getElementById('countdown-bar');
+    if (container) {
+      container.style.display = 'none';
+    }
+    if (bar) {
+      bar.style.width = '0%';
+    }
+  }
+
+  /**
+   * 更新倒计时进度条
+   */
+  updateCountdownBar(progress: number): void {
+    const bar = document.getElementById('countdown-bar');
+    if (bar) {
+      bar.style.width = `${progress}%`;
+    }
   }
 }

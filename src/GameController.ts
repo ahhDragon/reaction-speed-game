@@ -16,6 +16,8 @@ export class GameController implements IGameController {
   private timerService: TimerService;
   private uiRenderer: UIRenderer;
   private currentRound: GameRound | null = null;
+  private gooseMode: boolean = false;
+  private countdownInterval: number | null = null;
 
   constructor() {
     this.stateManager = new StateManager();
@@ -44,8 +46,59 @@ export class GameController implements IGameController {
     const colorBlockElement = this.uiRenderer.getColorBlockElement();
     colorBlockElement.addEventListener('click', () => this.handleClick());
     
+    // 设置大胖鹅模式按钮
+    const gooseBtn = document.getElementById('goose-mode-btn');
+    if (gooseBtn) {
+      gooseBtn.addEventListener('click', () => this.toggleGooseMode());
+    }
+    
     // 订阅状态变化
     this.stateManager.onStateChange((state) => this.onStateChange(state));
+  }
+
+  /**
+   * 切换大胖鹅模式
+   */
+  private toggleGooseMode(): void {
+    this.gooseMode = !this.gooseMode;
+    
+    const gooseBtn = document.getElementById('goose-mode-btn');
+    if (gooseBtn) {
+      if (this.gooseMode) {
+        gooseBtn.textContent = '🦢 退出大胖鹅模式';
+        gooseBtn.classList.add('active');
+        this.uiRenderer.setGooseModeStyle();
+      } else {
+        gooseBtn.textContent = '🦢 开启大胖鹅模式';
+        gooseBtn.classList.remove('active');
+        this.uiRenderer.removeGooseModeStyle();
+      }
+    }
+    
+    // 清除倒计时
+    this.clearCountdown();
+    
+    // 取消当前定时器
+    this.timerService.cancelDelay();
+    
+    // 完全重置到初始状态
+    this.stateManager.setState(GameState.INITIAL);
+    this.uiRenderer.renderColorBlock(defaultGameConfig.colors.initial);
+    this.uiRenderer.setInitialState();
+    this.uiRenderer.displayInstructions();
+    this.uiRenderer.clearResult();
+    this.uiRenderer.clearMessage();
+  }
+
+  /**
+   * 清除倒计时
+   */
+  private clearCountdown(): void {
+    if (this.countdownInterval !== null) {
+      clearInterval(this.countdownInterval);
+      this.countdownInterval = null;
+    }
+    this.uiRenderer.hideCountdownBar();
   }
 
   /**
@@ -58,9 +111,19 @@ export class GameController implements IGameController {
    * - 8.2: 重置色块到初始颜色
    */
   startRound(): void {
-    // 生成随机等待时间（1000-5000ms）
-    const { min, max } = defaultGameConfig.waitingPeriodRange;
-    const waitingPeriod = Math.floor(Math.random() * (max - min + 1)) + min;
+    // 清除之前的倒计时
+    this.clearCountdown();
+    
+    // 生成随机等待时间
+    let waitingPeriod: number;
+    if (this.gooseMode) {
+      // 大胖鹅模式：3000-6000ms
+      waitingPeriod = Math.floor(Math.random() * 3001) + 3000;
+    } else {
+      // 普通模式：1000-5000ms
+      const { min, max } = defaultGameConfig.waitingPeriodRange;
+      waitingPeriod = Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
     // 初始化新的游戏轮次数据
     this.currentRound = {
@@ -83,8 +146,16 @@ export class GameController implements IGameController {
     // 设置状态为 WAITING
     this.stateManager.setState(GameState.WAITING);
 
+    // 大胖鹅模式：显示倒计时进度条
+    if (this.gooseMode) {
+      this.startCountdown(waitingPeriod);
+    }
+
     // 在等待期结束后改变色块颜色
     this.timerService.setDelay(() => {
+      // 清除倒计时
+      this.clearCountdown();
+      
       // 改变色块颜色为绿色
       this.uiRenderer.renderColorBlock(defaultGameConfig.colors.changed);
       
@@ -100,6 +171,27 @@ export class GameController implements IGameController {
       // 设置状态为 READY（准备点击）
       this.stateManager.setState(GameState.READY);
     }, waitingPeriod);
+  }
+
+  /**
+   * 开始倒计时进度条
+   */
+  private startCountdown(duration: number): void {
+    this.uiRenderer.showCountdownBar();
+    
+    const startTime = Date.now();
+    const updateInterval = 50; // 每50ms更新一次
+    
+    this.countdownInterval = window.setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / duration) * 100, 100);
+      
+      this.uiRenderer.updateCountdownBar(progress);
+      
+      if (progress >= 100) {
+        this.clearCountdown();
+      }
+    }, updateInterval);
   }
 
   /**
@@ -142,7 +234,16 @@ export class GameController implements IGameController {
         break;
 
       case GameState.EARLY_CLICK:
-        // 在这些状态下忽略点击
+        // EARLY_CLICK 状态下也允许点击，直接回到初始状态
+        // 取消之前的定时器
+        this.timerService.cancelDelay();
+        this.clearCountdown();
+        
+        // 回到初始状态
+        this.stateManager.setState(GameState.INITIAL);
+        this.uiRenderer.renderColorBlock(defaultGameConfig.colors.initial);
+        this.uiRenderer.setInitialState();
+        this.uiRenderer.displayInstructions();
         break;
 
       default:
@@ -170,6 +271,9 @@ export class GameController implements IGameController {
   private handleEarlyClick(): void {
     // 取消当前的等待定时器
     this.timerService.cancelDelay();
+    
+    // 清除倒计时
+    this.clearCountdown();
 
     // 设置状态为 EARLY_CLICK
     this.stateManager.setState(GameState.EARLY_CLICK);
