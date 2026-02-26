@@ -19,10 +19,10 @@ export class StateManager implements IStateManager {
     // 初始化合法的状态转换规则
     this.validTransitions = new Map<GameState, Set<GameState>>([
       [GameState.INITIAL, new Set([GameState.WAITING])],
-      [GameState.WAITING, new Set([GameState.EARLY_CLICK, GameState.READY])],
+      [GameState.WAITING, new Set([GameState.EARLY_CLICK, GameState.READY, GameState.INITIAL])],
       [GameState.EARLY_CLICK, new Set([GameState.WAITING, GameState.INITIAL])],
-      [GameState.READY, new Set([GameState.RESULT])],
-      [GameState.RESULT, new Set([GameState.WAITING])]
+      [GameState.READY, new Set([GameState.RESULT, GameState.INITIAL])],
+      [GameState.RESULT, new Set([GameState.WAITING, GameState.INITIAL])]
     ]);
   }
 
