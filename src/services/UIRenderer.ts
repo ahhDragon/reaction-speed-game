@@ -114,45 +114,45 @@ export class UIRenderer implements IUIRenderer {
    */
   private getFeedbackInfo(rating: string): { text: string; textClass: string; animationClass: string } {
     switch (rating) {
-      case '神级反应':
+      case '神速胖鹅':
         return {
-          text: '开挂了吧？🤔',
+          text: '这只鹅开挂了！🦢⚡',
           textClass: 'godlike',
           animationClass: 'feedback-godlike'
         };
-      case '超快反应':
+      case '闪电胖鹅':
         return {
-          text: '手速单身30年！💪',
+          text: '嘎嘎快！💨',
           textClass: 'superfast',
           animationClass: 'feedback-superfast'
         };
-      case '优秀反应':
+      case '敏捷胖鹅':
         return {
-          text: '稳！👌',
+          text: '身手不错～🦢✨',
           textClass: 'excellent',
           animationClass: 'feedback-excellent'
         };
-      case '良好反应':
+      case '稳健胖鹅':
         return {
-          text: '还不错嘛～😎',
+          text: '稳稳的鹅～🦢',
           textClass: 'good',
           animationClass: 'feedback-good'
         };
-      case '还行吧':
+      case '悠闲胖鹅':
         return {
-          text: '差点意思～🤏',
+          text: '慢慢来嘛～🦢💤',
           textClass: 'average',
           animationClass: 'feedback-average'
         };
-      case '有点慢':
+      case '迟钝胖鹅':
         return {
-          text: '是不是没睡醒？😪',
+          text: '鹅困了？😴',
           textClass: 'slow',
           animationClass: 'feedback-slow'
         };
-      case '反应迟钝':
+      case '笨拙胖鹅':
         return {
-          text: '蜗牛都比你快！🐌',
+          text: '这是一只慢鹅！🐌',
           textClass: 'very-slow',
           animationClass: 'feedback-very-slow'
         };
