@@ -8,21 +8,33 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #game-container {
   position: relative;
   width: 100%;
   max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+}
+
+/* 游戏主区域 - 始终在视口中间 */
+.game-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 30px;
+  flex: 1;
+  width: 100%;
+  min-height: 70vh;
 }
 
 /* 色块样式 */
@@ -38,6 +50,7 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+  flex-shrink: 0;
 }
 
 /* 初始状态文字 */
@@ -81,6 +94,8 @@ body {
   font-size: 24px;
   font-weight: bold;
   color: #333;
+  width: 100%;
+  max-width: 600px;
 }
 
 /* 消息提示区样式 */
@@ -90,11 +105,14 @@ body {
   text-align: center;
   font-size: 18px;
   color: #666;
+  width: 100%;
+  max-width: 600px;
 }
 
 /* 评价标准说明区 */
 #rating-guide {
-  margin-top: 40px;
+  margin-top: auto;
+  margin-bottom: 20px;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
@@ -104,6 +122,7 @@ body {
   justify-content: center;
   gap: 15px;
   max-width: 700px;
+  width: 100%;
 }
 
 .rating-item {
@@ -136,6 +155,64 @@ body {
   color: #666;
   font-size: 13px;
   font-family: 'Courier New', monospace;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  #game-container {
+    padding: 15px;
+  }
+  
+  #color-block {
+    width: 180px;
+    height: 180px;
+  }
+  
+  #color-block.initial-state::after {
+    font-size: 20px;
+  }
+  
+  #result-display {
+    font-size: 20px;
+    padding: 15px;
+  }
+  
+  #message-display {
+    font-size: 16px;
+  }
+  
+  #rating-guide {
+    padding: 15px;
+    gap: 10px;
+  }
+  
+  .rating-item {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+  
+  .rating-icon {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  #color-block {
+    width: 160px;
+    height: 160px;
+  }
+  
+  #color-block.initial-state::after {
+    font-size: 18px;
+  }
+  
+  #result-display {
+    font-size: 18px;
+  }
+  
+  .rating-item {
+    font-size: 12px;
+  }
 }
 
 /* 增强反馈动画 */
