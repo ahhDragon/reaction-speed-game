@@ -502,3 +502,40 @@ body {
     font-size: 14px;
   }
 }
+
+/* 音效开关按钮 */
+.audio-toggle-button {
+  position: relative;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  align-self: center;
+}
+
+.audio-toggle-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #e8e8e8;
+}
+
+.audio-toggle-button:active {
+  transform: translateY(0);
+}
+
+.audio-toggle-button.disabled {
+  background: #d0d0d0;
+  color: #666;
+}
+
+.audio-toggle-button.disabled:hover {
+  background: #d0d0d0;
+  transform: none;
+}

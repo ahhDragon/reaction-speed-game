@@ -2,6 +2,7 @@ import { GameController as IGameController } from './interfaces/GameController';
 import { StateManager } from './services/StateManager';
 import { TimerService } from './services/TimerService';
 import { UIRenderer } from './services/UIRenderer';
+import { AudioManager } from './services/AudioManager';
 import { calculatePerformanceRating } from './services/PerformanceEvaluator';
 import { GameState } from './types/GameState';
 import { GameRound } from './types/GameRound';
@@ -15,6 +16,7 @@ export class GameController implements IGameController {
   private stateManager: StateManager;
   private timerService: TimerService;
   private uiRenderer: UIRenderer;
+  private audioManager: AudioManager;
   private currentRound: GameRound | null = null;
   private gooseMode: boolean = false;
   private countdownInterval: number | null = null;
@@ -23,6 +25,7 @@ export class GameController implements IGameController {
     this.stateManager = new StateManager();
     this.timerService = new TimerService();
     this.uiRenderer = new UIRenderer();
+    this.audioManager = new AudioManager();
   }
 
   /**
@@ -52,6 +55,12 @@ export class GameController implements IGameController {
       gooseBtn.addEventListener('click', () => this.toggleGooseMode());
     }
     
+    // 设置音效开关按钮
+    const audioBtn = document.getElementById('audio-toggle-btn');
+    if (audioBtn) {
+      audioBtn.addEventListener('click', () => this.toggleAudio());
+    }
+    
     // 订阅状态变化
     this.stateManager.onStateChange((state) => this.onStateChange(state));
   }
@@ -61,6 +70,9 @@ export class GameController implements IGameController {
    */
   private toggleGooseMode(): void {
     this.gooseMode = !this.gooseMode;
+    
+    // 播放模式切换音效
+    this.audioManager.playGooseModeSound();
     
     const gooseBtn = document.getElementById('goose-mode-btn');
     if (gooseBtn) {
@@ -88,6 +100,27 @@ export class GameController implements IGameController {
     this.uiRenderer.displayInstructions();
     this.uiRenderer.clearResult();
     this.uiRenderer.clearMessage();
+  }
+
+  /**
+   * 切换音效开关
+   */
+  private toggleAudio(): void {
+    const isEnabled = this.audioManager.isAudioEnabled();
+    this.audioManager.setEnabled(!isEnabled);
+    
+    const audioBtn = document.getElementById('audio-toggle-btn');
+    if (audioBtn) {
+      if (!isEnabled) {
+        audioBtn.textContent = '🔊 音效开启';
+        audioBtn.classList.remove('disabled');
+        // 播放测试音效
+        this.audioManager.playClickSound();
+      } else {
+        audioBtn.textContent = '🔇 音效关闭';
+        audioBtn.classList.add('disabled');
+      }
+    }
   }
 
   /**
@@ -159,6 +192,9 @@ export class GameController implements IGameController {
       // 改变色块颜色为绿色
       this.uiRenderer.renderColorBlock(defaultGameConfig.colors.changed);
       
+      // 播放色块变色音效
+      this.audioManager.playColorChangeSound();
+      
       // 显示快速点击提示
       this.uiRenderer.displayMessage('快点击色块！！');
       
@@ -213,6 +249,8 @@ export class GameController implements IGameController {
     switch (currentState) {
       case GameState.INITIAL:
         // 首次点击，开始第一轮游戏（需求 9.3）
+        // 播放点击音效
+        this.audioManager.playClickSound();
         // 移除初始状态样式
         this.uiRenderer.removeInitialState();
         this.startRound();
@@ -230,11 +268,15 @@ export class GameController implements IGameController {
 
       case GameState.RESULT:
         // 结果显示后，玩家点击继续下一轮
+        // 播放点击音效
+        this.audioManager.playClickSound();
         this.startRound();
         break;
 
       case GameState.EARLY_CLICK:
         // EARLY_CLICK 状态下也允许点击，直接回到初始状态
+        // 播放点击音效
+        this.audioManager.playClickSound();
         // 取消之前的定时器
         this.timerService.cancelDelay();
         this.clearCountdown();
@@ -269,6 +311,9 @@ export class GameController implements IGameController {
    * - 7.3: 提示显示至少 1000ms
    */
   private handleEarlyClick(): void {
+    // 播放提前点击音效
+    this.audioManager.playEarlyClickSound();
+    
     // 取消当前的等待定时器
     this.timerService.cancelDelay();
     
@@ -325,6 +370,9 @@ export class GameController implements IGameController {
 
     // 获取性能评价
     const rating = calculatePerformanceRating(this.currentRound.reactionTime);
+
+    // 播放成功音效（根据评级）
+    this.audioManager.playSuccessSound(rating);
 
     // 显示结果（需求 4.3, 5.1-5.3, 6.5）
     this.uiRenderer.displayResult(this.currentRound.reactionTime, rating);
