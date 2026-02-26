@@ -4,13 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>反应速度测试游戏</title>
-  <script type="module" crossorigin src="/reaction-speed-game/assets/index-Bi2nmzwl.js"></script>
-  <link rel="stylesheet" crossorigin href="/reaction-speed-game/assets/index-B9zepASJ.css">
+  <script type="module" crossorigin src="/reaction-speed-game/assets/index-DYAm0X26.js"></script>
+  <link rel="stylesheet" crossorigin href="/reaction-speed-game/assets/index-CeRqD0Z2.css">
 </head>
 <body>
   <div id="game-container">
+    <!-- 大胖鹅模式按钮 -->
+    <button id="goose-mode-btn" class="goose-mode-button">
+      🦢 开启大胖鹅模式
+    </button>
+    
     <!-- 游戏主区域 -->
     <div class="game-main">
+      <!-- 倒计时进度条 -->
+      <div id="countdown-bar-container" class="countdown-bar-container" style="display: none;">
+        <div id="countdown-bar" class="countdown-bar"></div>
+      </div>
+      
       <!-- 色块容器 -->
       <div id="color-block"></div>
       
