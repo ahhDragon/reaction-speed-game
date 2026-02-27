@@ -77,11 +77,11 @@ export class GameController implements IGameController {
     const gooseBtn = document.getElementById('goose-mode-btn');
     if (gooseBtn) {
       if (this.gooseMode) {
-        gooseBtn.textContent = '🦢 退出大胖鹅模式';
+        gooseBtn.innerHTML = '<span class="goose-icon"><img src="./assets/images/fatgoose_icon.png" alt="胖鹅"></span> 退出大胖鹅模式';
         gooseBtn.classList.add('active');
         this.uiRenderer.setGooseModeStyle();
       } else {
-        gooseBtn.textContent = '🦢 开启大胖鹅模式';
+        gooseBtn.innerHTML = '<span class="goose-icon"><img src="./assets/images/fatgoose_icon.png" alt="胖鹅"></span> 开启大胖鹅模式';
         gooseBtn.classList.remove('active');
         this.uiRenderer.removeGooseModeStyle();
       }

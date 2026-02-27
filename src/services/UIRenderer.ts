@@ -116,7 +116,7 @@ export class UIRenderer implements IUIRenderer {
     switch (rating) {
       case '神速胖鹅':
         return {
-          text: '这只鹅开挂了！🦢⚡',
+          text: '这只鹅开挂了！<span class="goose-icon"><img src="./assets/images/fatgoose_icon.png" alt="胖鹅"></span>⚡',
           textClass: 'godlike',
           animationClass: 'feedback-godlike'
         };
@@ -128,19 +128,19 @@ export class UIRenderer implements IUIRenderer {
         };
       case '敏捷胖鹅':
         return {
-          text: '身手不错～🦢✨',
+          text: '身手不错～<span class="goose-icon"><img src="./assets/images/fatgoose_icon.png" alt="胖鹅"></span>✨',
           textClass: 'excellent',
           animationClass: 'feedback-excellent'
         };
       case '稳健胖鹅':
         return {
-          text: '稳稳的鹅～🦢',
+          text: '稳稳的鹅～<span class="goose-icon"><img src="./assets/images/fatgoose_icon.png" alt="胖鹅"></span>',
           textClass: 'good',
           animationClass: 'feedback-good'
         };
       case '悠闲胖鹅':
         return {
-          text: '慢慢来嘛～🦢💤',
+          text: '慢慢来嘛～<span class="goose-icon"><img src="/assets/images/fatgoose_icon.png" alt="胖鹅"></span>💤',
           textClass: 'average',
           animationClass: 'feedback-average'
         };

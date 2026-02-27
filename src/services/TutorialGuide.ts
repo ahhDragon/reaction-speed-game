@@ -60,17 +60,17 @@ export class TutorialGuide {
     }> = [
       {
         target: '#color-block',
-        message: '🦢 嘎嘎！欢迎来到胖鹅测反应～点击这个色块就能开始游戏啦！',
+        message: '<img src="./assets/images/fatgoose_icon.png" alt="胖鹅" class="tutorial-goose-icon"> 嘎嘎！欢迎来到胖鹅测反应～点击这个色块就能开始游戏啦！',
         position: 'bottom'
       },
       {
         target: '#rating-guide',
-        message: '🦢 这里可以看到评分标准哦～看看你能拿到什么等级！',
+        message: '<img src="./assets/images/fatgoose_icon.png" alt="胖鹅" class="tutorial-goose-icon"> 这里可以看到评分标准哦～看看你能拿到什么等级！',
         position: 'top'
       },
       {
         target: '#goose-mode-btn',
-        message: '🦢 嘘...这里藏着一个神秘的特别模式，要不要试试？',
+        message: '<img src="./assets/images/fatgoose_icon.png" alt="胖鹅" class="tutorial-goose-icon"> 嘘...这里藏着一个神秘的特别模式，要不要试试？',
         position: 'bottom'
       }
     ];
